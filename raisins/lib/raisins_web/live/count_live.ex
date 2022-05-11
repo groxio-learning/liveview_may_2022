@@ -2,13 +2,18 @@ defmodule RaisinsWeb.CountLive do
   # In Phoenix v1.6+ apps, the line below should be: use MyAppWeb, :live_view
   use Phoenix.LiveView
 
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, :count, 42)}
+  alias Raisins.Counter, as: Counter
+
+  def mount(%{"count" => count}, _session, socket) do
+    {:ok, assign(socket, :count, Counter.new(count))}
   end
 
   def render(assigns) do
     ~H"""
-    Current temperature: <%= @temperature %>
+    <h1>
+      <%= Counter.message(@count) %>
+    </h1>
+    <button phx-click="inc">Increment</button>
     """
   end
 end

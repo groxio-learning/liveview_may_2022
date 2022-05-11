@@ -19,7 +19,7 @@ defmodule RaisinsWeb.Router do
 
     get "/", PageController, :index
 
-    live "/count", CountLive
+    live "/count/:count", CountLive
   end
 
   # Other scopes may use custom stacks.
