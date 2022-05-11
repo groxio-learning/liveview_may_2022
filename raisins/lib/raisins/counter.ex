@@ -1,13 +1,25 @@
 defmodule Raisins.Counter do
   def new(string) do
-    String.to_integer(string)
+    %{count: String.to_integer(string)}
   end
 
-  def inc(number) do
-    number + 1
+  def empty() do
+    %{count: 0}
   end
 
-  def message(number) do
-    "The count is #{number}"
+  def sum(%{count: count}, step) do
+    %{count: count + step}
+  end
+
+  def inc(map, step \\ 1) do
+    sum(map, step)
+  end
+
+  def dec(map, step \\ 1) do
+    sum(map, step * -1)
+  end
+
+  def message(map) do
+    "The count is #{map.count}"
   end
 end
