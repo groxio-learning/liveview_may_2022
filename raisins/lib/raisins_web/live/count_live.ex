@@ -14,6 +14,8 @@ defmodule RaisinsWeb.CountLive do
       <%= Counter.message(@count) %>
     </h1>
     <button phx-click="inc">Increment</button>
+    <button phx-click="dec">Decrement</button>
+    <button phx-click="clear">Clear</button>
     """
   end
 
@@ -21,7 +23,23 @@ defmodule RaisinsWeb.CountLive do
     {:noreply, inc(socket)}
   end
 
+  def handle_event("dec", _meta, socket) do
+    {:noreply, dec(socket)}
+  end
+
+  def handle_event("clear", _meta, socket) do
+    {:noreply, clear(socket)}
+  end
+
   defp inc(socket) do
     assign(socket, :count, Counter.inc(socket.assigns.count))
+  end
+
+  defp dec(socket) do
+    assign(socket, :count, Counter.dec(socket.assigns.count))
+  end
+
+  defp clear(socket) do
+    assign(socket, :count, Counter.empty())
   end
 end
