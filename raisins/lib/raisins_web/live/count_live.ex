@@ -16,4 +16,12 @@ defmodule RaisinsWeb.CountLive do
     <button phx-click="inc">Increment</button>
     """
   end
+
+  def handle_event("inc", _meta, socket) do
+    {:noreply, inc(socket)}
+  end
+
+  defp inc(socket) do
+    assign(socket, :count, Counter.inc(socket.assigns.count))
+  end
 end
