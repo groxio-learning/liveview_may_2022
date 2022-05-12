@@ -15,8 +15,21 @@ defmodule Raisins.Picker do
     @snippets
   end
 
-  def new do
-    __struct__()
+  # def new do
+  #   __struct__()
+  # end
+
+  def new() do
+    %__MODULE__{snippets: Raisins.Library.list_snippets, active_snippet: 0}
+  end
+
+  def first(picker) do
+    # %__MODULE__{snippets: [Raisins.Library.get_snippet!(0)], active_snippet: 0}
+    next(%{picker | active_snippet: 0})
+  end
+
+  def get(id) do
+    Raisins.Library.get_snippet!(String.to_integer(id))
   end
 
   def next(%{snippets: snippets, active_snippet: index} = picker) do
@@ -30,6 +43,7 @@ defmodule Raisins.Picker do
   end
 
   def show(%{snippets: snippets, active_snippet: active_snippet}) do
-    %{snippet: Enum.at(snippets, active_snippet), index: active_snippet}
+    snippet =  Enum.at(snippets, active_snippet)
+    %{snippet: snippet, index: snippet.id}
   end
 end

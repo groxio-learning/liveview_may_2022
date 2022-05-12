@@ -19,7 +19,7 @@ defmodule RaisinsWeb.Router do
 
     # get "/", PageController, :index
     live "/", PickerLive
-    live "/game/:snippet", GameLive
+    live "/game/:snippet_id", GameLive
     live "/count/:count", CountLive
 
     live "/snippets", SnippetLive.Index, :index
