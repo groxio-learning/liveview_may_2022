@@ -17,7 +17,8 @@ defmodule RaisinsWeb.Router do
   scope "/", RaisinsWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    #get "/", PageController, :index
+    live "/", GameLive
 
     live "/count/:count", CountLive
   end
