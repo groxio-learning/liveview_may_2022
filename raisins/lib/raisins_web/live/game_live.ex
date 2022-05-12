@@ -12,7 +12,16 @@ defmodule RaisinsWeb.GameLive do
     def render(assigns) do
         ~H"""
         <pre><%= Eraser.show(@output) %></pre>
-        <button></button>
+        <button phx-click="erase">Erase</button>
         """
     end
+
+    def handle_event("erase", _meta, socket) do
+        {:noreply, erase(socket)}
+    end
+
+    defp erase(socket) do
+        assign(socket, :output, Eraser.erase(socket.assigns.output))
+    end
+
 end
