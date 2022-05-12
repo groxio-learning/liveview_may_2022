@@ -11,6 +11,10 @@ defmodule Raisins.Picker do
   ]
   defstruct snippets: @snippets, active_snippet: 0
 
+  def default() do
+    @snippets
+  end
+
   def new do
     __struct__()
   end

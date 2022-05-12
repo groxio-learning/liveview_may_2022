@@ -15,9 +15,14 @@ defmodule RaisinsWeb.PickerLive do
     <pre> <%= inspect snippet %> </pre>
     <h1>name: <%= snippet.snippet.name %> Steps:</h1>
     <pre><%= snippet.snippet.text %></pre>
-    <a href={"/game/#{snippet.index}"}><button phx-click="pick">Pick</button></a>
+    <button phx-click="pick">Pick</button>
     <button phx-click="next">Next</button>
     """
+  end
+
+  def handle_event("pick", _meta, socket) do
+    snippet = Picker.show(socket.assigns.output)
+    {:noreply, push_redirect(socket, to: "/game/#{snippet.index}")}
   end
 
   def handle_event("next", _meta, socket) do

@@ -9,3 +9,9 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+
+Raisins.Picker.default() 
+|> Enum.map(fn item -> %{item | name: Kernel.to_string(item.name)} end)
+|> Enum.map(&Raisins.Library.create_snippet/1)
+|> IO.inspect
