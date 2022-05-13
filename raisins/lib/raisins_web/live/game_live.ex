@@ -2,9 +2,12 @@ defmodule RaisinsWeb.GameLive do
   use Phoenix.LiveView
 
   alias Raisins.Eraser
+  alias Raisins.Picker
 
-  def mount(_params, _session, socket) do
-    output = Eraser.new("Hello World", 3)
+  def mount(%{"snippet_id" => snippet_id}, _session, socket) do
+    snippet = Picker.get(snippet_id)
+    output = Eraser.new(snippet.text, snippet.steps)
+
     {:ok, assign(socket, :output, output)}
   end
 
