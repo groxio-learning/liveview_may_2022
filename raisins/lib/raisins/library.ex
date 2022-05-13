@@ -6,6 +6,7 @@ defmodule Raisins.Library do
   import Ecto.Query, warn: false
   alias Raisins.Repo
 
+  alias Raisins.Library.Snippet.Query
   alias Raisins.Library.Snippet
 
   @doc """
@@ -19,6 +20,22 @@ defmodule Raisins.Library do
   """
   def list_snippets do
     Repo.all(Snippet)
+  end
+
+  def next_snippet(snippet) do
+    snippet =
+      Query.new()
+      |> Query.next(snippet)
+      |> Repo.all()
+      |> List.first()
+
+    snippet || first_snippet()
+  end
+
+  def first_snippet() do
+    Query.new()
+    |> Query.first()
+    |> Repo.one!()
   end
 
   @doc """

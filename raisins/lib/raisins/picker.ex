@@ -20,7 +20,7 @@ defmodule Raisins.Picker do
   # end
 
   def new() do
-    %__MODULE__{snippets: Raisins.Library.list_snippets, active_snippet: 0}
+    %__MODULE__{snippets: Raisins.Library.list_snippets(), active_snippet: 0}
   end
 
   def first(picker) do
@@ -43,7 +43,7 @@ defmodule Raisins.Picker do
   end
 
   def show(%{snippets: snippets, active_snippet: active_snippet}) do
-    snippet =  Enum.at(snippets, active_snippet)
+    snippet = Enum.at(snippets, active_snippet)
     %{snippet: snippet, index: snippet.id}
   end
 end

@@ -6,14 +6,14 @@ defmodule RaisinsWeb.GameLive do
 
   def mount(%{"snippet_id" => snippet_id}, _session, socket) do
     snippet = Picker.get(snippet_id)
-    output = Eraser.new(snippet.text, snippet.steps)
+    eraser = Eraser.new(snippet.text, snippet.steps)
 
-    {:ok, assign(socket, :output, output)}
+    {:ok, assign(socket, :eraser, eraser)}
   end
 
   def render(assigns) do
     ~H"""
-    <pre><%= Eraser.show(@output) %></pre>
+    <pre><%= Eraser.show(@eraser) %></pre>
     <button phx-click="erase">Erase</button>
     """
   end
@@ -23,6 +23,6 @@ defmodule RaisinsWeb.GameLive do
   end
 
   defp erase(socket) do
-    assign(socket, :output, Eraser.erase(socket.assigns.output))
+    assign(socket, :eraser, Eraser.erase(socket.assigns.eraser))
   end
 end
