@@ -1,28 +1,25 @@
 defmodule RaisinsWeb.PickerLive do
   use Phoenix.LiveView
 
-  alias Raisins.Picker
+  alias Raisins.Library
 
   def mount(_params, _session, socket) do
-    output = Picker.new()
-    {:ok, assign(socket, :output, output)}
+    snippet = Library.first_snippet()
+    {:ok, assign(socket, :snippet, snippet)}
   end
 
   def render(assigns) do
-    snippet = Picker.show(assigns.output)
-
     ~H"""
-    <pre> <%= inspect snippet %> </pre>
-    <h1>name: <%= snippet.snippet.name %> Steps:</h1>
-    <pre><%= snippet.snippet.text %></pre>
+    <pre> <%= inspect @snippet %> </pre>
+    <h1>name: <%= @snippet.name %> Steps: <%= @snippet.steps %></h1>
+    <pre><%= @snippet.text %></pre>
     <button phx-click="pick">Pick</button>
     <button phx-click="next">Next</button>
     """
   end
 
   def handle_event("pick", _meta, socket) do
-    snippet = Picker.show(socket.assigns.output)
-    {:noreply, push_redirect(socket, to: "/game/#{snippet.index}")}
+    {:noreply, push_redirect(socket, to: "/game/#{socket.assigns.snippet.id}")}
   end
 
   def handle_event("next", _meta, socket) do
@@ -30,6 +27,6 @@ defmodule RaisinsWeb.PickerLive do
   end
 
   defp next(socket) do
-    assign(socket, :output, Picker.next(socket.assigns.output))
+    assign(socket, :snippet, Library.next_snippet(socket.assigns.snippet))
   end
 end

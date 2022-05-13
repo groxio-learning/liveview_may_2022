@@ -15,5 +15,6 @@ defmodule Raisins.Library.Snippet do
     snippet
     |> cast(attrs, [:name, :text, :steps])
     |> validate_required([:name, :text, :steps])
+    |> validate_length(:text, min: 4)
   end
 end
