@@ -11,7 +11,7 @@ defmodule RaisinsWeb.PickerLive do
   def render(assigns) do
     ~H"""
     <pre> <%= inspect @snippet %> </pre>
-    <h1>name: <%= @snippet.name %> Steps:</h1>
+    <h1>name: <%= @snippet.name %> Steps: <%= @snippet.steps %></h1>
     <pre><%= @snippet.text %></pre>
     <button phx-click="pick">Pick</button>
     <button phx-click="next">Next</button>
